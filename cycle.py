@@ -38,6 +38,27 @@ try:
     doughMixerCount = L / mixerM
     print(f"Необходимое количество тестомесильных машин: {ceil(doughMixerCount)} (округлено вверх)")
 
+    # Ввод данных для подготовки фарша
+    meatPercentage = float(input("Введите массовую долю мяса в готовой продукции (%): "))
+    eggPercentage = float(input("Введите массовую долю яиц в готовой продукции (%): "))
+    saltPercentage = float(input("Введите массовую долю соли в готовой продукции (%): "))
+    spicesPercentage = float(input("Введите массовую долю специй в готовой продукции (%): "))
+
+    if not (0 <= meatPercentage + eggPercentage + saltPercentage + spicesPercentage <= 100):
+        raise ValueError("Суммарная массовая доля компонентов фарша должна быть в диапазоне от 0 до 100.")
+
+    cutterPerformance = float(input("Введите производительность куттера (т/ч): "))
+    if cutterPerformance <= 0:
+        raise ValueError("Производительность куттера должна быть больше нуля.")
+
+    # Расчет производительности линии подготовки фарша
+    mincedMeat = ((meatPercentage + eggPercentage + saltPercentage + spicesPercentage) * P) / 100
+    print(f"Производительность линии подготовки фарша: {mincedMeat:.2f} т/ч")
+
+    # Расчет необходимого количества куттеров
+    cutterCount = mincedMeat / cutterPerformance
+    print(f"Необходимое количество куттеров: {ceil(cutterCount)} (округлено вверх)")
+
 except ValueError as e:
     print(f"Ошибка ввода: {e}")
 except Exception as e:
